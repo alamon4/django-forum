@@ -1,4 +1,5 @@
-cs3240-f14-team01
-=================
+#CS3240 Final Project
 
-F14 Software Development Course Project
+##Team 1
+
+
