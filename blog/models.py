@@ -1,19 +1,22 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-
+#simple tag
 class Tag(models.Model):
+
     slug = models.SlugField(max_length=200, unique=True)
 
     def __str__(self):
         return self.slug
 
 
+#this is needed for 
 class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
 
 
+# "bulletin" class
 class Entry(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
@@ -25,13 +28,11 @@ class Entry(models.Model):
 
     objects = EntryQuerySet.as_manager()
 
-    def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return reverse("entry_detail", kwargs={"slug": self.slug})
-
     class Meta:
         verbose_name = "Blog Entry"
         verbose_name_plural = "Blog Entries"
         ordering = ["-created"]
+    
+    
+    def __str__(self):
+        return self.title

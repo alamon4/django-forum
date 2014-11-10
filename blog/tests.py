@@ -3,7 +3,9 @@ from django.contrib.auth import get_user_model
 from .models import Entry
 
 
+#some test cases
 class BlogPostTest(TestCase):
+    
     def setUp(self):
         self.user = get_user_model().objects.create(username="testuser")
 
@@ -15,9 +17,3 @@ class BlogPostTest(TestCase):
         entry.publish = True
         entry.save()
         self.assertEqual(Entry.objects.published().count(), 1)
-
-
-class BlogViewTests(TestCase):
-    def test_feed_url(self):
-        response = self.client.get('/feed/')
-        self.assertIn("xml", response['Content-Type'])
