@@ -5,6 +5,8 @@
 ##Team 1
 
 
-Command to install dependencies:
+### To Install Dependencies
+
+Simple Command Yo:
 
 	pip install -r deps.txt
