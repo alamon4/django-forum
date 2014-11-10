@@ -5,7 +5,7 @@
 ##Team 1
 
 
-### To Install Dependencies
+### Dependency Installation
 
 Simple Command Yo:
 
