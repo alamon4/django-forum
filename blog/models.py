@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+class UploadFile(models.Model):
+    file = models.FileField(upload_to='files')
 #simple tag
 class Tag(models.Model):
 
