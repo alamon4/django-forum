@@ -3,7 +3,7 @@ from Crypto.Cipher import AES
 
 #this file implements and AES encryption. This is a symetric algorithm; that is, there is only one key to both encode and decode. The alternative is a public-private algorithm, where the server stores a copy of the private key, and the reader has a copy of the public key. Decoding takes the combo of the public and private keys. 
 
-#We definiately want the latter case, but this is a start
+#We *might* want the latter case, but this is a start.
 
 def encrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
 
