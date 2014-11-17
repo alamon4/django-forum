@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 
 class UploadFile(models.Model):
     file = models.FileField(upload_to='files')
+
+    def __str__(self):
+        return self.slug
 #simple tag
 class Tag(models.Model):
 
@@ -28,6 +31,7 @@ class Entry(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag)
+    file = models.ForeignKey(UploadFile)
 
     objects = EntryQuerySet.as_manager()
 

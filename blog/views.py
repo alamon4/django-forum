@@ -23,18 +23,15 @@ class BlogDetail(generic.DetailView):
 
 def upload(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_file = UploadFile(file = request.FILES['file'])
-            new_file.save()
-
-            return HttpResponseRedirect(reverse('main:home'))
-        else:
-            form = UploadFileForm()
-
-        data = {'form': form}
-        return render_to_response('templates/uploads.html', data, context_instance=RequestContext(request))
-
+       form = UploadFileForm(request.POST, request.FILES)
+       if form.is_valid():
+           new_file = UploadFile(file = request.FILES['file'])
+           new_file.save()
+           return HttpResponseRedirect(reverse('main:home'))
+       else:
+           form = UploadFileForm()
+       data = {'form': form}
+    return render_to_response('templates/uploads.html', data, context_instance=RequestContext(request))
 def download(request,file_name):
     file_path = settings.MEDIA_ROOT +'/'+ file_name
     file_wrapper = FileWrapper(file(file_path,'rb'))
