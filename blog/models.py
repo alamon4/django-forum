@@ -2,10 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 class UploadFile(models.Model):
-    file = models.FileField(upload_to='files')
-
-    def __str__(self):
-        return self.slug
+    afile = models.FileField(upload_to='files')
 
 #this is needed for home page
 class EntryQuerySet(models.QuerySet):
@@ -21,7 +18,7 @@ class Entry(models.Model):
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    file = models.ForeignKey(UploadFile)
+    myUploadFile = models.ForeignKey(UploadFile)
 
     objects = EntryQuerySet.as_manager()
 
