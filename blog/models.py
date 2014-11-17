@@ -10,7 +10,7 @@ class Tag(models.Model):
         return self.slug
 
 
-#this is needed for 
+#this is needed for home page
 class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
@@ -18,6 +18,7 @@ class EntryQuerySet(models.QuerySet):
 
 # "bulletin" class
 class Entry(models.Model):
+
     title = models.CharField(max_length=200)
     body = models.TextField()
     slug = models.SlugField(max_length=200, unique=True)
