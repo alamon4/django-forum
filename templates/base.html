@@ -38,6 +38,12 @@
 
       <div class="blog-header">
         <h1 class="blog-title">theHorton Feed!</h1>
+	<h3> {% if user.is_authenticated %}
+	    <p>Welcome, {{ user.username }}  <a href="{% url "user_logout" %}">[logout]</a></p>
+	    {% else %}
+	    <p>Welcome, Guest <a href="{% url "user_login" %}">[login]</a> or  <a href="{% url "user_new" %}">[Register]</a></p>
+	{% endif %}
+	</h3>
         <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
       </div>
 
@@ -52,6 +58,8 @@
               <li {% if not page_obj.has_next %}class="disabled"{% endif %}><a {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}"{% endif %}>Next</a></li>
             </ul>
     {% endif %}
+        {% block content %}
+{% endblock %}
         </div><!-- /.blog-main -->
 
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
@@ -79,5 +87,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script src="{% static "js/docs.min.js" %}"></script>
+
   </body>
 </html>
