@@ -21,4 +21,4 @@ class UserForm(forms.ModelForm):
 class EntryForm(forms.ModelForm):
     class Meta:
 	model = Entry
-	fields = ['title', 'slug', 'body']
+	fields = ['title', 'slug', 'body','myUploadFile']
