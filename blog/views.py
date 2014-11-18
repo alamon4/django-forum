@@ -11,13 +11,19 @@ from forms import UploadFileForm
 import os
 import mimetypes
 from wsgiref.util import FileWrapper
-from blog.forms import UserForm
+from blog.forms import UserForm, EntryForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django import forms
 from django.contrib.auth.hashers import make_password
-from blog.models import User
+from blog.models import User, Entry
 
+class EntryCreate(CreateView):
+    model = Entry
+    form_class = EntryForm
+    success_url = reverse_lazy('index')
+    template_name = "entry_form.html"    
+  
 class UserCreate(CreateView):
     model = User
     form_class = UserForm

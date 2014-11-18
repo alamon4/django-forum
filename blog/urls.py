@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = patterns(
     '',
+    url(r'^new-post/$', views.EntryCreate.as_view(), name='entry_new'),    
     url(r'^new/$', views.UserCreate.as_view(), name='user_new'),    
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='user_login'),  
     url(r'^logout$', 'django.contrib.auth.views.logout_then_login', {'login_url': reverse_lazy('user_login')}, name='user_logout'),
