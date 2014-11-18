@@ -22,6 +22,8 @@ class Entry(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     myUploadFile = models.ForeignKey(UploadFile)
+    body = models.TextField()
+
 
     objects = EntryQuerySet.as_manager()
 
