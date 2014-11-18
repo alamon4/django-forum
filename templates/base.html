@@ -44,10 +44,11 @@
 	    <p>Welcome, Guest <a href="{% url "user_login" %}">[login]</a> or  <a href="{% url "user_new" %}">[Register]</a></p>
 	{% endif %}
 	</h3>
-
+  <br>
   <p> {% if user.is_authenticated %}
     <h3><a href="{% url "entry_new" %}">Make a blog post!</a></h3>
       {% else %}
+      <h3>Sign in to make a post</h3>
       {% endif %}
   </p>
       </div>
