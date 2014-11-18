@@ -44,7 +44,12 @@
 	    <p>Welcome, Guest <a href="{% url "user_login" %}">[login]</a> or  <a href="{% url "user_new" %}">[Register]</a></p>
 	{% endif %}
 	</h3>
-        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+
+  <p> {% if user.is_authenticated %}
+    <h3><a href="{% url "entry_new" %}">Make a blog post!</a></h3>
+      {% else %}
+      {% endif %}
+  </p>
       </div>
 
       <div class="row">
