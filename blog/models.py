@@ -17,6 +17,7 @@ class Entry(models.Model):
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
+    body = models.CharField(max_length=1000, default = " ")
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
