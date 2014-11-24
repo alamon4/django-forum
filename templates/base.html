@@ -51,7 +51,15 @@
       <h3>Sign in to make a post</h3>
       {% endif %}
   </p>
-      </div>
+  <p> {% if user.is_authenticated %}
+        <h3>Search blog posts!</h3>
+    <form action="{% url "search" %}" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+    </form>      {% endif %}
+  </p>
+
+  </div>
 
       <div class="row">
 

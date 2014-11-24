@@ -17,6 +17,9 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django import forms
 from django.contrib.auth.hashers import make_password
 from blog.models import User, Entry
+from django.shortcuts import render
+from django.db.models import Sum, Q, get_app, get_models
+
 
 class EntryCreate(CreateView):
     model = Entry
@@ -59,3 +62,20 @@ def download(request,file_name):
     response['Content-Length'] = os.stat(file_path).st_size
     response['Content-Disposition'] = 'attachment; filename=%s' % str(file_name)
     return response
+  
+def search_form(request):
+    return render(request, 'search_form.html')
+
+def search(request):
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+	    for term in q.split():
+	      blogs = Entry.objects.filter( Q(title__icontains = term) | Q(body__icontains = term)).order_by('title')
+            return render(request, 'search_results.html',
+                {'blogs': blogs, 'query': q})
+    return render(request, 'search_form.html',
+        {'error': error})
