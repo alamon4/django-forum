@@ -7,8 +7,6 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from models import UploadFile
-from forms import UploadFileForm
 import os
 import mimetypes
 from wsgiref.util import FileWrapper
@@ -41,17 +39,6 @@ class BlogDetail(generic.DetailView):
     model = models.Entry
     template_name = "post.html"
 
-def upload(request):
-    if request.method == 'POST':
-       form = EntryForm(request.POST, request.FILES)
-       if form.is_valid():
-           new_file = Entry(myFile = request.FILES['file'])
-           new_file.save()
-           return HttpResponseRedirect(reverse('main:home'))
-    else:
-          form = EntryForm()
-    data = {'form': form}
-    return render_to_response('entry_form.html', data, context_instance=RequestContext(request))
 def download(request,file_name):
     file_path = settings.MEDIA_ROOT +'/'+ file_name
     file_wrapper = FileWrapper(file(file_path,'rb'))

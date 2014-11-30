@@ -8,4 +8,3 @@ class EntryAdmin(MarkdownModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(models.Entry, EntryAdmin)
-admin.site.register(models.UploadFile)

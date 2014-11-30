@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from models import UploadFile, User, Entry
+from models import User, Entry
 from django.contrib.auth.hashers import make_password
 from django.db import models
 
-class UploadFileForm(forms.Form):
-
-    class Meta:
-        model = UploadFile
-        
 class UserForm(forms.ModelForm):
     class Meta:
         model = User

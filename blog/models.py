@@ -4,9 +4,6 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager
 from django.contrib.auth.models import AbstractBaseUser
 
-class UploadFile(models.Model):
-    afile = models.FileField(upload_to='files')
-
 #this is needed for home page
 class EntryQuerySet(models.QuerySet):
     def published(self):
