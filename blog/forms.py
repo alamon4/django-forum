@@ -2,6 +2,7 @@
 from django import forms
 from models import UploadFile, User, Entry
 from django.contrib.auth.hashers import make_password
+from django.db import models
 
 class UploadFileForm(forms.Form):
 
@@ -19,6 +20,7 @@ class UserForm(forms.ModelForm):
         return pwd
 
 class EntryForm(forms.ModelForm):
+
     class Meta:
-	model = Entry
-	fields = ['title', 'slug', 'body','myUploadFile']
+        model = Entry
+        fields = ['title', 'slug', 'body','myFile']

@@ -6,7 +6,7 @@
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
     <p class="meta">
       {{ object.created }} |
-      <a href="{{ object.myUploadFile.afile.url }}">{{ object.myUploadFile.afile.name }}</a>
+      <a href="{{ object.myFile.url }}">{{ object.myFile.name }}</a>
     </p>
     {{ object.body|markdown }}
   </div>

@@ -22,7 +22,7 @@ class Entry(models.Model):
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    myUploadFile = models.ForeignKey(UploadFile)
+    myFile = models.FileField(upload_to='files',default=False)
     body = models.TextField()
 
 

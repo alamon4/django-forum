@@ -1,5 +1,6 @@
 from django.views import generic
 from . import models
+from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -18,15 +19,13 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 from blog.models import User, Entry
 from django.shortcuts import render
-from django.db.models import Sum, Q, get_app, get_models
+from django.db.models import Sum, Q
 
 
 class EntryCreate(CreateView):
-    model = Entry
     form_class = EntryForm
     success_url = reverse_lazy('index')
-    template_name = "entry_form.html"    
-  
+    template_name = "entry_form.html"
 class UserCreate(CreateView):
     model = User
     form_class = UserForm
@@ -44,15 +43,15 @@ class BlogDetail(generic.DetailView):
 
 def upload(request):
     if request.method == 'POST':
-       form = UploadFileForm(request.POST, request.FILES)
+       form = EntryForm(request.POST, request.FILES)
        if form.is_valid():
-           new_file = UploadFile(file = request.FILES['file'])
+           new_file = Entry(myFile = request.FILES['file'])
            new_file.save()
            return HttpResponseRedirect(reverse('main:home'))
-       else:
-           form = UploadFileForm()
-       data = {'form': form}
-    return render_to_response('templates/uploads.html', data, context_instance=RequestContext(request))
+    else:
+          form = EntryForm()
+    data = {'form': form}
+    return render_to_response('entry_form.html', data, context_instance=RequestContext(request))
 def download(request,file_name):
     file_path = settings.MEDIA_ROOT +'/'+ file_name
     file_wrapper = FileWrapper(file(file_path,'rb'))

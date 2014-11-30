@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = patterns(
     '',
-    url(r'^new-post/$', views.EntryCreate.as_view(), name='entry_new'),    
+    url(r'^new-post/$', views.EntryCreate.as_view(), name='entry_new'),
     url(r'^new/$', views.UserCreate.as_view(), name='user_new'),    
     url(r'^search-form/$', views.search_form, name='search_form'),
     url(r'^search/$', views.search, name='search'),    
