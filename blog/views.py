@@ -59,8 +59,7 @@ def search(request):
         if not q:
             error = True
         else:
-	    for term in q.split():
-	      blogs = Entry.objects.filter( Q(title__icontains = term) | Q(body__icontains = term)).order_by('title')
+	    blogs = Entry.objects.filter( Q(title__icontains = q) | Q(body__icontains = q)).order_by('title')
             return render(request, 'search_results.html',
                 {'blogs': blogs, 'query': q})
     return render(request, 'search_form.html',

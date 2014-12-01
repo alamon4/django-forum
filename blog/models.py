@@ -22,7 +22,6 @@ class Entry(models.Model):
     myFile = models.FileField(upload_to='files',default=False)
     body = models.TextField()
 
-
     objects = EntryQuerySet.as_manager()
 
     class Meta:

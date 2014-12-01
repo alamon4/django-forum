@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
+from models import Entry
 
 urlpatterns = patterns(
     '',
@@ -12,5 +13,10 @@ urlpatterns = patterns(
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='user_login'),  
     url(r'^logout$', 'django.contrib.auth.views.logout_then_login', {'login_url': reverse_lazy('user_login')}, name='user_logout'),
     url(r'^$', views.BlogIndex.as_view(), name="index"),
+    url(r'^order_by_title/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('title')), name='index'),
+    url(r'^order_by_slug/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('slug')), name='index'),
+    url(r'^order_by_body/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('body')), name='index'),    
+    url(r'^date_desc/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('created')), name='index'),    
+    url(r'^date_ascd/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('-created')), name='index'),        
     url(r'^(?P<slug>\S+)$', views.BlogDetail.as_view(), name="entry_detail"),
 )

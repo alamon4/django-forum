@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
         return pwd
 
 class EntryForm(forms.ModelForm):
-
+    
     class Meta:
         model = Entry
         fields = ['title', 'slug', 'body','myFile']
