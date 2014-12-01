@@ -7,16 +7,15 @@
     <p>Found {{ blogs|length }} blog{{ blogs|pluralize }}.</p>
          <table style="width:50%">
   <tr>
-    <th></th>
     <th><u>Created Date</u></th>
     <th><u>Title</u></th> 
     <th><u>File</u></th>
   </tr>
         {% for blog in blogs %}
 	<tr>
-	<th><a href="{% url "" blog.slug %}">{{ blog.created }}</a></th>
-	<th><a href="{% url "user_edit" blog.slug %}">{{ blog.title }}</th>
-	<th><a href="{% url "user_edit" blog.slug %}">{{ blog.myFile }}</th>
+	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.created }}</a></th>
+	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.title }}</th>
+	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.myFile }}</th>
 	</tr>     {% endfor %}
         </table>
 {% else %}
