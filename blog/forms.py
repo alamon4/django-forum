@@ -7,11 +7,7 @@ from multiupload.fields import MultiFileField
 from django.core.files import File 
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-import zipfile
-import fileinput
-import uuid
-import os
-import urlparse, urllib
+import hashlib, zipfile, fileinput, uuid, os, urlparse, urllib, CryptoLib, hashlib, shutil
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -26,6 +22,8 @@ class UserForm(forms.ModelForm):
 class EntryForm(forms.ModelForm):
     
     attachments = MultiFileField(max_num=10, min_num=0, max_file_size=1024*1024*5)
+    encrypt = forms.BooleanField(label="Encrypt")
+    password = forms.CharField(widget=forms.PasswordInput)
 
     def save(self, commit=True):
 
@@ -34,22 +32,36 @@ class EntryForm(forms.ModelForm):
         oldwd = os.getcwd()
         os.chdir(default_storage.path(''))
         archiveName = str(uuid.uuid4()) + '.zip'
+        
+        try:
+            with zipfile.ZipFile(archiveName, 'w' ) as z:
+                for each in self.cleaned_data['attachments']:
+                    fileName = str(each)
+                    default_storage.save(fileName, ContentFile(each.read()))
+                    z.write(fileName)
+                    default_storage.delete(fileName)
+                z.close()
 
-        with zipfile.ZipFile(archiveName, 'w' ) as z:
-            for each in self.cleaned_data['attachments']:
-                fileName = str(each)
-                default_storage.save(fileName, ContentFile(each.read()))
-                z.write(fileName)
-                default_storage.delete(fileName)
-            z.close()
+            #################################
+            #### ENCRYPT THAT SHIT HERE #####
+            #################################
 
-        #################################
-        #### ENCRYPT THAT SHIT HERE #####
-        #################################
-       
-        self.instance.myFile = File(file(default_storage.path(archiveName)))
-        default_storage.delete(archiveName)
-        self.instance.save()
+            if(self.cleaned_data['encrypt']):
+                key = hashlib.sha256(self.cleaned_data['password']).digest()
+                CryptoLib.encrypt_file(key, default_storage.path(archiveName))
+                default_storage.delete(archiveName)
+                archiveName += '.enc'
+
+            self.instance.myFile = File(file(default_storage.path(archiveName)))
+            default_storage.delete(archiveName)
+            self.instance.save()
+
+        except:
+            #nuke the media directory
+            shutil.rmtree(default_storage.path(''))
+            os.mkdir(default_storage.path(''))
+            raise
+            
 
         os.chdir(oldwd)
         return self.instance
