@@ -6,7 +6,7 @@
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
     <p class="meta">
       {{ object.created }} |
-      <a href="{{ object.myFile.url }}">{{ object.myFile.name }}</a>
+      <a href="{{ object.myFile.url }}">File Archive</a>
     </p>
     {{ object.body|markdown }}
   </div>
