@@ -3,6 +3,15 @@ from django import forms
 from models import User, Entry
 from django.contrib.auth.hashers import make_password
 from django.db import models
+from multiupload.fields import MultiFileField
+from django.core.files import File 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import zipfile
+import fileinput
+import uuid
+import os
+import urlparse, urllib
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -16,6 +25,35 @@ class UserForm(forms.ModelForm):
 
 class EntryForm(forms.ModelForm):
     
+    attachments = MultiFileField(max_num=10, min_num=0, max_file_size=1024*1024*5)
+
+    def save(self, commit=True):
+
+        super(EntryForm, self).save(commit=commit)
+
+        oldwd = os.getcwd()
+        os.chdir(default_storage.path(''))
+        archiveName = str(uuid.uuid4()) + '.zip'
+
+        with zipfile.ZipFile(archiveName, 'w' ) as z:
+            for each in self.cleaned_data['attachments']:
+                fileName = str(each)
+                default_storage.save(fileName, ContentFile(each.read()))
+                z.write(fileName)
+                default_storage.delete(fileName)
+            z.close()
+
+        #################################
+        #### ENCRYPT THAT SHIT HERE #####
+        #################################
+       
+        self.instance.myFile = File(file(default_storage.path(archiveName)))
+        default_storage.delete(archiveName)
+        self.instance.save()
+
+        os.chdir(oldwd)
+        return self.instance
+
     class Meta:
         model = Entry
-        fields = ['title', 'slug', 'body','myFile']
+        fields = ['title', 'slug', 'body']

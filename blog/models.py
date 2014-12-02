@@ -19,7 +19,7 @@ class Entry(models.Model):
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    myFile = models.FileField(upload_to='files',default=False)
+    myFile = models.FileField(upload_to='files', default=False)
     body = models.TextField()
 
     objects = EntryQuerySet.as_manager()

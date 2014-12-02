@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'blog',
     'django_markdown',
+    'multiupload',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,4 +89,3 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, "templates"), )
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"), )
 LOGIN_REDIRECT_URL = 'index'
-
