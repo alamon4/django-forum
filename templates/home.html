@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% load django_markdown %}
 
-{% block blog_entries %}
+{% block nav-feed %} <a class="blog-nav-item active" href="{% url "index" %}">Feed</a> {% endblock %}
+
+{% block help_text %}
+The feed lists posts from all other authors in descending chronological order.
+{% endblock %}
+
+{% block content %}
 {% for object in object_list %}
   <div class="post">
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
     <p class="meta">
-      {{ object.created }} |
-      Tagged under {{  object.tags.all|join:", " }}
+      {{ object.created }}
     </p>
     {{ object.body|markdown }}
   </div>

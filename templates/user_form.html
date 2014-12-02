@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block content %}
+
+{% block nav-register %} <a class="blog-nav-item active" href="{% url "user_new" %}">Register</a> {% endblock %}
+
+{% block landing_content %}
 {% if form.errors %}
 <p>Username already taken.</p>
 {% endif %}
@@ -8,4 +11,3 @@
     <input type="submit" value="Submit" />
 </form>
 {% endblock %}
-  
