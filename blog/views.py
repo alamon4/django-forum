@@ -72,14 +72,14 @@ def decrypt(request):
     myEntry = Entry.objects.filter(slug=request.GET['slug'])[0]
     fileName = default_storage.path(myEntry.myFile)
     key = hashlib.sha256(request.GET['pass']).digest() 
-    CryptoLib.decrypt_file(key, fileName)
 
-    dec_filePath = default_storage.path(fileName[:-4])
+    dec_filePath = default_storage.path('files/archive.zip')
+    CryptoLib.decrypt_file(key, fileName, dec_filePath)
 
     wrapper = FileWrapper(file(dec_filePath))
-    response = HttpResponse(wrapper, content_type='text/plain')
+    response = HttpResponse(wrapper, content_type='application/force-download')
     response['Content-Length'] = os.path.getsize(dec_filePath)
 
-    default_storage.delete(fileName[:-4])
+    default_storage.delete("files/archive.zip")
 
     return response
