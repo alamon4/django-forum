@@ -29,7 +29,7 @@ The feed lists posts from all other authors in descending chronological order.
   <div class="post">
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
     <p class="meta">
-      {{ object.created }}
+      <strong>Post Date:</strong> {{ object.created }}
     </p>
     {{ object.body|markdown }}
   </div>
