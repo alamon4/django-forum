@@ -88,6 +88,8 @@ class Entry(models.Model):
     myFile = models.FileField(upload_to='files', default=None)
     body = models.TextField()
     has_enc = models.CharField(max_length=5, default="False")
+    event_location = models.CharField(max_length=1000, default = " ")
+
 
     objects = EntryQuerySet.as_manager()
 
