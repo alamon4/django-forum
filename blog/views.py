@@ -76,8 +76,6 @@ def decrypt(request):
 
     dec_filePath = default_storage.path(fileName[:-4])
 
-    print(filename)
-
     wrapper = FileWrapper(file(dec_filePath))
     response = HttpResponse(wrapper, content_type='text/plain')
     response['Content-Length'] = os.path.getsize(dec_filePath)
