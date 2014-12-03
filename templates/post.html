@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load django_markdown %}
 
+{% block help_text %}
+Enter information to produce a new post! You may or may not decrypt your post. You may enter regular text or markdown.
+{% endblock %}
+
 {% block content %}
   <div class="post">
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
