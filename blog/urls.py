@@ -12,6 +12,7 @@ urlpatterns = patterns(
     url(r'^(?P<slug>\S+)/edit/$', views.BlogUpdate.as_view(), name='blog_edit'),
     url(r'^new-user/$', views.UserCreate.as_view(), name='user_new'),        
     url(r'^new-post/$', views.EntryCreate.as_view(), name='entry_new'),
+    url(r'^(?P<slug>\S+)/delete/$', views.EntryDelete.as_view(), name='blog_delete'),    
     url(r'^search-form/$', views.search_form, name='search_form'),
     url(r'^search/$', views.search, name='search'),    
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='user_login'),  

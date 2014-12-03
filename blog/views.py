@@ -46,7 +46,12 @@ class EntryCreate(CreateView):
     form_class = EntryForm
     success_url = reverse_lazy('index')
     template_name = "entry_form.html"    
-
+    
+class EntryDelete(DeleteView):
+    model = Entry
+    success_url = reverse_lazy('index')
+    template_name = "entry_confirm_delete.html"
+    
 class UserCreate(CreateView):
     model = User
     form_class = UserForm
