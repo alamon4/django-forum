@@ -1,23 +1,25 @@
  {% extends "base.html" %}
  {% load django_markdown %}
 
+{% block help_text %}
+Here is a list of post affiliating with your queried folder!
+{% endblock %}
+
 {% block nav-folder %} <a class="blog-nav-item active" href="{% url "folders" %}">View Folders</a> {% endblock %}
 
  {% block content %}
  {{query}}
 {% if blogs %}
-    <p>{{ blogs|length }} blog{{ blogs|pluralize }} in folder "{{folder.name}}".</p>
-         <table style="width:50%">
+    <h3>There is {{ blogs|length }} blog{{ blogs|pluralize }} in folder "{{folder.name}}".</h3>
+         <table class="table" style="width:80%">
   <tr>
-    <th><u>Created Date</u></th>
-    <th><u>Title</u></th> 
-    <th><u>File</u></th>
+    <th><strong>Creation Date</strong></th>
+    <th><strong>Bulletin Title</strong></th> 
   </tr>
         {% for blog in blogs %}
 	<tr>
 	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.created }}</a></th>
 	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.title }}</th>
-	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.myFile }}</th>
 	</tr>     {% endfor %}
         </table>
 {% else %}

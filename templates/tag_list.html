@@ -1,18 +1,26 @@
  {% extends "base.html" %}
  {% load django_markdown %}
 
+{% block help_text %}
+Here's a list of your folder. You can also create a new folder, or edit/delete an old one!
+{% endblock %}
+
 {% block nav-folder %} <a class="blog-nav-item active" href="{% url "folders" %}">View Folders</a> {% endblock %}
 
  {% block content %}
- <p><a href="{% url "tag_new" %}">Create a new folder</a></p>
-<ul>
+ <h1>Existing Folders</h1>
+ <br>
+<table class="table" style="width:80%">
   {% for tag in object_list %}
-  <li>
-      <a href="info/?q={{tag.name}}">{{tag.name}}</a>
-      <a href="{% url "tag_edit" slug=tag.name %}">Edit</a>
-      <a href="{% url "tag_delete" slug=tag.name %}">Delete</a>
-
-      </li>
+  <tr>
+      <td><a href="info/?q={{tag.name}}">{{tag.name}}</a></td>
+      <td><a class="btn btn-info" href="{% url "tag_edit" slug=tag.name %}">Edit</a>
+      <a class="btn btn-info" href="{% url "tag_delete" slug=tag.name %}">Delete</a>
+    </td>
+  </tr>
   {% endfor %}
+</table>
 </ul>
+<br>
+<p  style="padding-left:1%"><a class="btn btn-danger" href="{% url "tag_new" %}">Create a New Folder!</a></p>
 {% endblock %}
