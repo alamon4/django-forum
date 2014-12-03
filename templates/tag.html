@@ -1,7 +1,7 @@
  {% extends "base.html" %}
  {% load django_markdown %}
 
-{% block nav-post %} <a class="blog-nav-item active" href="{% url "folders" %}">View Folders</a> {% endblock %}
+{% block nav-folder %} <a class="blog-nav-item active" href="{% url "folders" %}">View Folders</a> {% endblock %}
 
  {% block content %}
  {{query}}

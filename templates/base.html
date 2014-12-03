@@ -70,6 +70,12 @@
       <div class="row">
         <div class="col-sm-8 blog-main">
 
+        <div class="sidebar-module sidebar-module-inset">
+		<h3>Welcome!</h3> 
+		<a href="{% url "user_login" %}">Login</a> or <a href="{% url "user_new" %}">register</a> to begin.
+		</div>
+
+		<br>	
 
 		{% block landing_content %} {% endblock %}
 
