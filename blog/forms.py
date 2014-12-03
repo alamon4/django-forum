@@ -8,8 +8,10 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import hashlib, zipfile, fileinput, uuid, os, urlparse, urllib, CryptoLib, hashlib, shutil
+from django_markdown.widgets import MarkdownWidget
 
 class UserForm(forms.ModelForm):
+
     class Meta:
         model = User
         fields = ['firstName', 'lastName', 'username', 'password']
@@ -19,15 +21,21 @@ class UserForm(forms.ModelForm):
         pwd = make_password(pwd)  # default to pbkdf2_sha256 with random salt
         return pwd
 
+    class Meta:
+        model = Entry
+
 class EntryForm(forms.ModelForm):
     
-    attachments = MultiFileField(max_num=10, min_num=0, max_file_size=1024*1024*5)
-    encrypt = forms.BooleanField(label="Encrypt")
-    password = forms.CharField(widget=forms.PasswordInput)
+    attachments = MultiFileField(max_num=20, min_num=0, max_file_size=1024*1024*5, required=False)
+    encrypt = forms.BooleanField(label="Encrypt", initial=True, required= False)
+    password = forms.CharField(widget=forms.PasswordInput, required=False, initial="")
 
     def save(self, commit=True):
 
         super(EntryForm, self).save(commit=commit)
+
+        if len(self.cleaned_data['attachments']) == 0:
+            return self.instance
 
         oldwd = os.getcwd()
         os.chdir(default_storage.path(''))
@@ -46,13 +54,14 @@ class EntryForm(forms.ModelForm):
             #### ENCRYPT THAT SHIT HERE #####
             #################################
 
-            if(self.cleaned_data['encrypt']):
+            if(self.cleaned_data['encrypt'] and self.cleaned_data['password'] != ""):
                 key = hashlib.sha256(self.cleaned_data['password']).digest()
                 CryptoLib.encrypt_file(key, default_storage.path(archiveName))
                 default_storage.delete(archiveName)
                 archiveName += '.enc'
 
             self.instance.myFile = File(file(default_storage.path(archiveName)))
+            print self.instance.myFile
             default_storage.delete(archiveName)
             self.instance.save()
 
@@ -65,6 +74,7 @@ class EntryForm(forms.ModelForm):
 
         os.chdir(oldwd)
         return self.instance
+
 
     class Meta:
         model = Entry

@@ -5,8 +5,10 @@
   <div class="post">
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
     <p class="meta">
-      {{ object.created }} |
-      <a href="{{ object.myFile.url }}">File Archive</a>
+      {{ object.created }}
+		{% if object.myFile != "" %}
+			| <a href="{{ object.myFile.url }}">File Archive</a>
+		{% endif %}
     </p>
     {{ object.body|markdown }}
   </div>

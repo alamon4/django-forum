@@ -7,7 +7,6 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^markdown/', include("django_markdown.urls")),
     url(r'^', include('blog.urls')),
-    url(r'^download/(?P<file_name>.+)$', 'blog.views.download'),
 )
 if settings.DEBUG:
     urlpatterns = patterns('',
