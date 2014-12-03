@@ -9,30 +9,6 @@ class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
 
-
-# "bulletin" class
-class Entry(models.Model):
-
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
-    body = models.CharField(max_length=1000, default = " ")
-    publish = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    myFile = models.FileField(upload_to='files', default=None)
-    body = models.TextField()
-    has_enc = models.CharField(max_length=5, default="False")
-
-    objects = EntryQuerySet.as_manager()
-
-    class Meta:
-        verbose_name = "Blog Entry"
-        verbose_name_plural = "Blog Entries"
-        ordering = ["-created"]
-    
-    def __str__(self):
-        return self.title
-      
 class BlogUserManager(UserManager):
     def create_superuser(self, username, firstName, lastName, password):
         user = User(
@@ -57,7 +33,7 @@ class User(AbstractBaseUser):
     objects = BlogUserManager()
 
     def __unicode__(self):
-        return self.firstName
+        return self.username
 
     def get_absolute_url(self):
         return reverse('user_edit', kwargs={'pk': self.pk})
@@ -92,3 +68,34 @@ class User(AbstractBaseUser):
 
     def get_short_name(self):
         return self.firstName
+
+class Tag(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    
+    def __unicode__(self):
+        return self.name  
+      
+# "bulletin" class
+class Entry(models.Model):
+    author = models.ForeignKey(User, null=True, blank=True)
+    tagline = models.ForeignKey(Tag, null=True, blank=True)
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
+    body = models.CharField(max_length=1000, default = " ")
+    publish = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    myFile = models.FileField(upload_to='files', default=None)
+    body = models.TextField()
+    has_enc = models.CharField(max_length=5, default="False")
+
+    objects = EntryQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = "Blog Entry"
+        verbose_name_plural = "Blog Entries"
+        ordering = ["-created"]
+    
+    def __str__(self):
+        return self.title
+                

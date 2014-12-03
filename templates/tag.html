@@ -1,0 +1,29 @@
+ {% extends "base.html" %}
+ {% load django_markdown %}
+
+{% block nav-post %} <a class="blog-nav-item active" href="{% url "folders" %}">View Folders</a> {% endblock %}
+
+ {% block content %}
+ {{query}}
+{% if blogs %}
+    <p>{{ blogs|length }} blog{{ blogs|pluralize }} in folder "{{folder.name}}".</p>
+         <table style="width:50%">
+  <tr>
+    <th><u>Created Date</u></th>
+    <th><u>Title</u></th> 
+    <th><u>File</u></th>
+  </tr>
+        {% for blog in blogs %}
+	<tr>
+	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.created }}</a></th>
+	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.title }}</th>
+	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.myFile }}</th>
+	</tr>     {% endfor %}
+        </table>
+{% else %}
+    <p>No blogs in folder "{{folder.name}}". </p>
+{% endif %} 
+<br>
+<br>
+{% endblock %}
+ 

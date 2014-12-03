@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from models import User, Entry
+from models import User, Entry, Tag
 from django.contrib.auth.hashers import make_password
 from django.db import models
 from multiupload.fields import MultiFileField
@@ -79,4 +79,9 @@ class EntryForm(forms.ModelForm):
 
     class Meta:
         model = Entry
-        fields = ['title', 'slug', 'body']
+        fields = ['title', 'slug', 'body', 'tagline']
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['name']

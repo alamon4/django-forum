@@ -1,0 +1,9 @@
+ {% extends "base.html" %}
+ {% load django_markdown %}
+
+{% block nav-post %} <a class="blog-nav-item active" href="{% url "entry_new" %}">Post</a> {% endblock %}
+
+ {% block content %}
+{{test.name}}
+{% endblock %}
+ 

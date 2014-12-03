@@ -11,6 +11,7 @@
 		  {% block nav-feed %} <a class="blog-nav-item inactive" href="{% url "index" %}">Feed</a> {% endblock %}
 		  {% block nav-search %} <a class="blog-nav-item inactive" href="{% url "search" %}">Search</a> {% endblock %}
 		  {% block nav-post %} <a class="blog-nav-item inactive" href="{% url "entry_new" %}">Post</a> {% endblock %}
+		  {% block nav-folder %} <a class="blog-nav-item inactive" href="{% url "folders" %}">View Folders</a> {% endblock %}		  
 		  <a style="float: right;" class="blog-nav-item inactive" href="{% url "user_logout" %}"> logout {{ user.username }}</a>
         </nav>
       </div>
