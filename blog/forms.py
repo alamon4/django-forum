@@ -21,9 +21,6 @@ class UserForm(forms.ModelForm):
         pwd = make_password(pwd)  # default to pbkdf2_sha256 with random salt
         return pwd
 
-    class Meta:
-        model = Entry
-
 class EntryForm(forms.ModelForm):
     
     attachments = MultiFileField(max_num=20, min_num=0, max_file_size=1024*1024*5, required=False)

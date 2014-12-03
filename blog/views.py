@@ -50,7 +50,7 @@ class EntryCreate(CreateView):
 class UserCreate(CreateView):
     model = User
     form_class = UserForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('user_login')
     template_name = "user_form.html"
     
 class BlogIndex(generic.ListView):
