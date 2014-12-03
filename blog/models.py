@@ -89,6 +89,8 @@ class Entry(models.Model):
     body = models.TextField()
     has_enc = models.CharField(max_length=5, default="False")
     event_location = models.CharField(max_length=1000, default = " ")
+    event_date = models.DateTimeField(auto_now_add=False)
+
 
 
     objects = EntryQuerySet.as_manager()
