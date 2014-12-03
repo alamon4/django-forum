@@ -9,6 +9,9 @@
   {% for tag in object_list %}
   <li>
       <a href="info/?q={{tag.name}}">{{tag.name}}</a>
+      <a href="{% url "tag_edit" slug=tag.name %}">Edit</a>
+      <a href="{% url "tag_delete" slug=tag.name %}">Delete</a>
+
       </li>
   {% endfor %}
 </ul>

@@ -70,7 +70,7 @@ class User(AbstractBaseUser):
         return self.firstName
 
 class Tag(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.SlugField(max_length=200, unique=True)
     
     def __unicode__(self):
         return self.name  

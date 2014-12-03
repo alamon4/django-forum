@@ -72,6 +72,20 @@ class BlogUpdate(UpdateView):
     form_class = EntryForm
     template_name = "entry_form.html"
     success_url = reverse_lazy('index')
+
+class TagUpdate(UpdateView):
+    model = models.Tag
+    slug_field = 'name'    
+    form_class = TagForm
+    template_name = "tag_form.html"
+    success_url = reverse_lazy('index')
+    
+      
+class TagDelete(DeleteView):
+    model = Tag
+    slug_field = 'name'        
+    success_url = reverse_lazy('index')
+    template_name = "tag_confirm_delete.html"
     
 def search_form(request):
     return render(request, 'search_form.html')
@@ -120,3 +134,9 @@ def folderview(request):
 	blogs = Entry.objects.filter( Q(tagline = folder))
         return render(request, 'tag.html',
             {'blogs': blogs, 'folder': folder})
+
+def copy_blog(blog_slug):
+    obj = Entry.objects.get(slug = blog_slug)
+    obj.slug = "test"
+    obj.save()
+    
