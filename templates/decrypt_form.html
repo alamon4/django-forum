@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+	<p>Enter password to decrypt and download file.</p>
+    <form action= "{% url "decrypt" %}" >
+        <input type="password" name="pass">
+        <input type="hidden" name="slug", value={{slug}}>
+        <input type="submit" value="Download!">
+    </form>
+
+<br>
+<FORM><INPUT Type="button" VALUE="Return" onClick="history.go(-1);return true;"></FORM>
+
+</body>
+</html> 
+
+{% endblock %}

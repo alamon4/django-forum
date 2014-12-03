@@ -18,5 +18,7 @@ urlpatterns = patterns(
     url(r'^order_by_body/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('body')), name='index'),    
     url(r'^date_desc/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('created')), name='index'),    
     url(r'^date_ascd/$', views.BlogIndex.as_view(queryset=Entry.objects.order_by('-created')), name='index'),        
+    url(r'^(?P<slug>\S+)/decrypt_form/$', views.decrypt_form, name="decrypt_form"),
+    url(r'/decrypt/$', views.decrypt, name="decrypt"),
     url(r'^(?P<slug>\S+)$', views.BlogDetail.as_view(), name="entry_detail"),
 )

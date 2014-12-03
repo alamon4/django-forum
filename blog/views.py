@@ -19,6 +19,12 @@ from blog.models import User, Entry
 from django.shortcuts import render
 from django.db.models import Sum, Q
 import CryptoLib
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import hashlib
+import os, tempfile, zipfile
+from django.http import HttpResponse
+from django.core.servers.basehttp import FileWrapper
 
 
 class EntryCreate(CreateView):
@@ -56,3 +62,26 @@ def search(request):
                 {'blogs': blogs, 'query': q})
     return render(request, 'search_form.html',
         {'error': error})
+
+def decrypt_form(request, slug):
+    success_url = request.META.get('HTTP_REFERER')
+    return render(request, 'decrypt_form.html', {'slug':slug})
+
+def decrypt(request):
+
+    myEntry = Entry.objects.filter(slug=request.GET['slug'])[0]
+    fileName = default_storage.path(myEntry.myFile)
+    key = hashlib.sha256(request.GET['pass']).digest() 
+    CryptoLib.decrypt_file(key, fileName)
+
+    dec_filePath = default_storage.path(fileName[:-4])
+
+    print(filename)
+
+    wrapper = FileWrapper(file(dec_filePath))
+    response = HttpResponse(wrapper, content_type='text/plain')
+    response['Content-Length'] = os.path.getsize(dec_filePath)
+
+    default_storage.delete(fileName[:-4])
+
+    return response

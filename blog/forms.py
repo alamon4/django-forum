@@ -59,6 +59,7 @@ class EntryForm(forms.ModelForm):
                 CryptoLib.encrypt_file(key, default_storage.path(archiveName))
                 default_storage.delete(archiveName)
                 archiveName += '.enc'
+                self.instance.has_enc = "True"
 
             self.instance.myFile = File(file(default_storage.path(archiveName)))
             print self.instance.myFile

@@ -7,7 +7,11 @@
     <p class="meta">
       {{ object.created }}
 		{% if object.myFile != "" %}
-			| <a href="{{ object.myFile.url }}">File Archive</a>
+			{% if object.has_enc == "True" %}
+				| <a href="{% url "decrypt_form" slug=object.slug %}">Encrypted Archive</a>
+			{% else %}
+				| <a href="{{ object.myFile.url }}">Unencrypted Archive</a> 
+			{% endif %}
 		{% endif %}
     </p>
     {{ object.body|markdown }}

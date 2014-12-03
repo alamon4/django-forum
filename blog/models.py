@@ -21,6 +21,7 @@ class Entry(models.Model):
     modified = models.DateTimeField(auto_now=True)
     myFile = models.FileField(upload_to='files', default=None)
     body = models.TextField()
+    has_enc = models.CharField(max_length=5, default="False")
 
     objects = EntryQuerySet.as_manager()
 
