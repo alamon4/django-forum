@@ -11,7 +11,7 @@ Enter information to produce a new post! You may or may not decrypt your post. Y
     <h4><a href="{% url "blog_edit" slug=object.slug %}">Edit</a>
     | <a href="{% url "blog_delete" slug=object.slug %}">Delete</a></h4>    
     <p class="meta">
-      <strong>Post Date:</strong> {{ object.created }}<br><strong>Event Location:</strong> {{ object.event_location }}<br><strong>Event Date:</strong> {{ object.event_date }}<br><strong>Event Filed In:</strong> {{ object.tagline }}
+      <strong>Author:</strong> {{ object.author }}<br><strong>Post Date:</strong> {{ object.created }}<br><strong>Event Location:</strong> {{ object.event_location }}<br><strong>Event Date:</strong> {{ object.event_date }}<br><strong>Event Filed In:</strong> {{ object.tagline }}
 		{% if object.myFile != "" %}
 			{% if object.has_enc == "True" %}
 				| <a href="{% url "decrypt_form" slug=object.slug %}">Encrypted Archive</a>
