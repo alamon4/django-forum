@@ -4,15 +4,10 @@
 {% block nav-feed %} <a class="blog-nav-item active" href="{% url "index" %}">Feed</a> {% endblock %}
 
 {% block help_text %}
-The feed lists posts from all other authors in descending chronological order.
-{% endblock %}
-
-{% block content %}
-<h1>SecureWitness</h1><h3>A System to Support Human Rights Data Collection
-</h3>
-<br>
+Enter information to produce a new post! You may or may not decrypt your post. You may enter regular text or markdown.
+<br><br><br>
 <div class="sidebar-module sidebar-module-inset">
-<h4>Select Ordering Property for Bulletins</h4>
+<h4>Select Ordering Property</h4>
 	<FORM name="f2"> 
 		<SELECT name="s2" onChange="window.location=document.f2.s2.options[document.f2.s2.selectedIndex].value"> 
 			<option selected="selected" disabled="disabled">Choose Attribute</option>
@@ -23,7 +18,13 @@ The feed lists posts from all other authors in descending chronological order.
 			<OPTION value="{% url "by_title" %}">Title
 		</SELECT> 
 	</FORM> 
-</div>
+</div>{% endblock %}
+
+{% block content %}
+<h1>SecureWitness</h1><h3>A System to Support Human Rights Data Collection
+</h3>
+<br>
+
 
 {% for object in object_list %}
   <div class="post">
