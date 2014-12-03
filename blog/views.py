@@ -66,6 +66,7 @@ class BlogUpdate(UpdateView):
     model = models.Entry
     form_class = EntryForm
     template_name = "entry_form.html"
+    success_url = reverse_lazy('index')
     
 def search_form(request):
     return render(request, 'search_form.html')
