@@ -37,7 +37,10 @@
 
 	<div class="blog-footer">
     <p>CS3240 -- Team 1</p>
-    <a href="#">Back to top</a></p>
+    <p><a href="#">Back to top</a></p>
+    {% if user.is_active and user.is_staff %}
+        <p><a href="/admin/">You're an admin, make admin changes.</a></p>
+    {% endif %}
     </div>	
 
 	<!-- Bootstrap core JavaScript
