@@ -8,18 +8,18 @@ Here are the results of your search.
 <p>You searched for: <strong>{{ query }}</strong></p>
 
 {% if blogs %}
-    <p>Found {{ blogs|length }} blog{{ blogs|pluralize }}.</p>
+    <p>There exists {{ blogs|length }} blog{{ blogs|pluralize }} under that query.</p>
          <table style="width:50%">
+    <table class="table" style="width:80%">
+
   <tr>
-    <th><u>Created Date</u></th>
-    <th><u>Title</u></th> 
-    <th><u>File</u></th>
+    <th><strong>Creation Date</strong></th>
+    <th><strong>Blog Title</strong></th> 
   </tr>
         {% for blog in blogs %}
 	<tr>
 	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.created }}</a></th>
 	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.title }}</th>
-	<th><a href="{% url "entry_detail" blog.slug %}">{{ blog.myFile }}</th>
 	</tr>     {% endfor %}
         </table>
 {% else %}
