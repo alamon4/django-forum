@@ -7,7 +7,7 @@ Enter information to produce a new post! You may or may not decrypt your post. Y
 
 {% block content %}
   <div class="post">
-    <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
+    <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>  
     <h4><a href="{% url "blog_edit" slug=object.slug %}">Edit</a>
     | <a href="{% url "blog_delete" slug=object.slug %}">Delete</a></h4>    
     <p class="meta">

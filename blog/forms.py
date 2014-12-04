@@ -76,7 +76,7 @@ class EntryForm(forms.ModelForm):
 
     class Meta:
         model = Entry
-        fields = ['author', 'title', 'slug', 'body', 'tagline', 'event_location', 'event_date']
+        fields = ['first_name', 'last_name', 'title', 'slug', 'body', 'tagline', 'event_location', 'event_date']
 
 class TagForm(forms.ModelForm):
     class Meta:
