@@ -113,14 +113,23 @@ def decrypt(request):
     fileName = default_storage.path(myEntry.myFile)
     key = hashlib.sha256(request.GET['pass']).digest() 
 
-    dec_filePath = default_storage.path(fileName[:-4])
-    CryptoLib.decrypt_file(key, fileName, dec_filePath)
+    try:
+        CryptoLib.decrypt_file(key, fileName)
+        dec_filePath = default_storage.path(fileName[:-4])
 
-    wrapper = FileWrapper(file(dec_filePath))
-    response = HttpResponse(wrapper, content_type='application/force-download')
-    response['Content-Length'] = os.path.getsize(dec_filePath)
+        print dec_filePath
 
-    default_storage.delete(fileName[:-4])
+        wrapper = FileWrapper(file(dec_filePath))
+        response = HttpResponse(wrapper, content_type='application/zip')
+        response['Content-Length'] = os.path.getsize(dec_filePath)
+
+        default_storage.delete(fileName[:-4])
+
+    except:
+        #nuke the media directory
+        shutil.rmtree(default_storage.path(''))
+        os.mkdir(default_storage.path(''))
+        raise
 
     return response
   
