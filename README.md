@@ -1,4 +1,6 @@
-##An abstraction of a Django Blogging App/Forum for Event posting.
+##A Django Blog/Forum App
+
+Handles users/authentication, posting (w/ markdown), sorting/searching for posts, folder structure.
 
 
 ### Dependency Installation
