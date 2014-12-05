@@ -1,8 +1,4 @@
-#CS3240 Final Project
-
-![](http://www.seas.virginia.edu/admin/logos/images/gif/tn/full_web.gif)
-
-##Team 1
+##An abstraction of a Django Blogging App/Forum for Event posting.
 
 
 ### Dependency Installation
