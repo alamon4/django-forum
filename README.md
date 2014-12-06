@@ -1,6 +1,6 @@
 ##A Django Blog/Forum App
 
-Handles users/authentication, posting (w/ markdown), sorting/searching for posts, folder structure.
+Handles users/authentication, posting (w/ markdown), sorting/searching for posts, folder structure, encrpyting posts/file uploads.
 
 
 ### Dependency Installation
